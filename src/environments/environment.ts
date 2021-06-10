@@ -7,7 +7,7 @@ import {Environment} from './interface';
 export const environment: Environment = {
   production: false,
   apiKey: 'AIzaSyBeVNY1dO6dHpkj5e7EOZU2ctA4O-chAvQ',
-  API_ENDPOINT: 'http://localhost:8189'
+  API_ENDPOINT: 'https://divisionofexpenses.herokuapp.com'
 };
 
 //  'https://divisionofexpenses.herokuapp.com'
