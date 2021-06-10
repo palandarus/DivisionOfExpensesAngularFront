@@ -1,19 +1,19 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {EventsService} from '../shared/events.service';
+import {EventsService} from '../../shared/events.service';
 import {catchError, switchMap} from 'rxjs/operators';
-import {Event} from '../../shared/interfaces';
+import {Event} from '../../../shared/interfaces';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription, throwError} from 'rxjs';
-import {AlertService} from '../../shared/alert.service';
+import {AlertService} from '../../../shared/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
     selector: 'app-edit-page',
-    templateUrl: './edit-page.component.html',
-    styleUrls: ['./edit-page.component.scss']
+    templateUrl: './edit-event-page.component.html',
+    styleUrls: ['./edit-event-page.component.scss']
 })
-export class EditPageComponent implements OnInit, OnDestroy {
+export class EditEventPageComponent implements OnInit, OnDestroy {
 
     form: FormGroup;
     event: Event;
@@ -24,7 +24,8 @@ export class EditPageComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private eventsService: EventsService,
-        private alert: AlertService
+        private alert: AlertService,
+        private router: Router
     ) {
     }
 
@@ -73,6 +74,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
         ).subscribe(() => {
             this.submitted = false;
             this.alert.success('event был обновлен');
+            this.router.navigate(['/user', 'dashboard']);
         });
     }
 

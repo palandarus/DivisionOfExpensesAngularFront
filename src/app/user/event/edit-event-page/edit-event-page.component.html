@@ -42,10 +42,17 @@
         </div>
 
         <div *ngIf="event.eventUserList.length; else loading" class="padding-inside">
-            <div class="form-control">
-                <input id="newEventUser" type="text" placeholder="Имя участника" formControlName="newEventUser" >
-                <a (click)="addUser(form.get('newEventUser').value)">Добавить участника</a>
+            <div
+                    class="form-control"
+                    style="width:300px"
+            >
+                <input id="newEventUser" type="text" placeholder="Имя участника" formControlName="newEventUser">
+                <a
+                        (click)="addUser(form.get('newEventUser').value)"
+                        class="text-danger"
+                >Добавить участника</a>
             </div>
+
             <label>Список участников:</label>
             <table>
                 <thead>
@@ -67,7 +74,7 @@
             </table>
         </div>
         <button
-                class="btn btn-primary"
+                class="btn btn-success"
                 type="submit"
                 [disabled]="form.invalid || submitted"
         >Сохранить изменения
