@@ -18,7 +18,6 @@ export class EditEventPageComponent implements OnInit, OnDestroy {
     form: FormGroup;
     event: Event;
     submitted = false;
-
     uSub: Subscription;
 
     constructor(
@@ -65,7 +64,11 @@ export class EditEventPageComponent implements OnInit, OnDestroy {
             eventUserList: this.form.value.eventUserList
         }).pipe(
             catchError((error: HttpErrorResponse) => {
-                if (error.status === 403) {
+                if (error.status === 202) {
+                    this.submitted = false;
+                    this.alert.success('event был обновлен');
+                    this.router.navigate(['/user', 'dashboard']);
+                } else if (error.status === 403) {
                     this.alert.danger(`имя пользователя не существует, изменения не сохранены. ${error.message.toString()}`);
                 }
                 this.submitted = false;

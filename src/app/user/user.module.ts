@@ -14,7 +14,7 @@ import {SearchPipe} from './shared/pipe/search.pipe';
 import { AlertComponent } from '../shared/components/alert/alert.component';
 import {LocalizedCurrencyPipe} from './shared/pipe/localized-currency.pipe';
 import { DashboardExpPageComponent } from './event/exp/dashboard-exp-page/dashboard-exp-page.component';
-import { CreateExpPageComponent } from './event/exp/create-exp-page/create-exp-page.component';
+import { CreateExpensePageComponent } from './event/exp/create-exp-page/create-exp-page.component';
 import { EditExpPageComponent } from './event/exp/edit-exp-page/edit-exp-page.component';
 
 @NgModule({
@@ -28,7 +28,7 @@ import { EditExpPageComponent } from './event/exp/edit-exp-page/edit-exp-page.co
     LocalizedCurrencyPipe,
     AlertComponent,
     DashboardExpPageComponent,
-    CreateExpPageComponent,
+    CreateExpensePageComponent,
     EditExpPageComponent
   ],
   imports: [
@@ -45,7 +45,7 @@ import { EditExpPageComponent } from './event/exp/edit-exp-page/edit-exp-page.co
           {path: 'create', component: CreateEventPageComponent, canActivate: [AuthGuard]},
           {path: 'event/:id/edit', component: EditEventPageComponent, canActivate: [AuthGuard]},
           {path: 'event/:id/exp', component: DashboardExpPageComponent, canActivate: [AuthGuard]},
-          {path: 'event/:id/exp/create', component: CreateExpPageComponent, canActivate: [AuthGuard]},
+          {path: 'event/:id/exp/create', component: CreateExpensePageComponent, canActivate: [AuthGuard]},
           {path: 'event/:id/exp/:id/edit', component: EditExpPageComponent, canActivate: [AuthGuard]}
         ]
       }

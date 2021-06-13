@@ -30,6 +30,45 @@ export interface FbCreateResponse {
     name: string;
 }
 
+
+export interface Expense {
+    id?: string;
+    buyer?: string;
+    comment: string;
+    event?: string;
+    expenseDate: Date;
+    totalExpenseSum: string;
+    numberOfExpenseParticipants?: string;
+    expenseList?: string[];
+    description?: string;
+    directPayerMap: Map<string, string>;
+    partitialPayerMap: Map<string, string>;
+}
+
+export interface ExpenseOut {
+    id?: string;
+    buyer?: string;
+    comment: string;
+    event?: string;
+    expenseDate: Date;
+    totalExpenseSum: string;
+    numberOfExpenseParticipants?: string;
+    expenseList?: string[];
+    description?: string;
+    directPayerMap?: {};
+    partitialPayerMap?: {};
+}
+
+export interface DirectPayerMap {
+    username: string;
+    summa: string;
+}
+
+export interface PartitialPayerMap {
+    username: string;
+    coef: string;
+}
+
 export interface Token {
     sub: string;
     roles: string[];

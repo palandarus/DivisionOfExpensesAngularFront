@@ -22,7 +22,6 @@ export class EventsService {
             .pipe(map((response) => response));
         console.log(r.toPromise());
         return r;
-
     }
 
     getById(id: string): Observable<Event> {
