@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ExpenseIn} from '../../../../shared/interfaces';
 import {Expense} from '../../../../shared/interfaces';
-import {ExpenseOut} from '../../../../shared/interfaces';
 import {ExpensesService} from '../../../shared/expenses.service';
 import {Event} from '../../../../shared/interfaces';
 import {EventsService} from '../../../shared/events.service';
@@ -23,7 +23,7 @@ export class CreateExpensePageComponent implements OnInit {
   partitialPayerMap: Map<string, string>;
   directPayerMapOut: {};
   partitialPayerMapOut: {};
-  eventUserList: {};
+  eventUserList: any;
 
 
   constructor(
@@ -64,7 +64,7 @@ export class CreateExpensePageComponent implements OnInit {
   submit() {
     this.convertDirectPayerMapToJson();
     this.convertPartitialPayerMapToJson();
-    const expense: ExpenseOut = {
+    const expense: Expense = {
       totalExpenseSum: this.form.value.totalExpenseSum,
       comment: this.form.value.comment,
       event: this.form.value.event,

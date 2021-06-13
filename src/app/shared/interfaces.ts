@@ -31,7 +31,7 @@ export interface FbCreateResponse {
 }
 
 
-export interface Expense {
+export interface ExpenseIn {
     id?: string;
     buyer?: string;
     comment: string;
@@ -41,11 +41,11 @@ export interface Expense {
     numberOfExpenseParticipants?: string;
     expenseList?: string[];
     description?: string;
-    directPayerMap: Map<string, string>;
-    partitialPayerMap: Map<string, string>;
+    directPayerMap?: {};
+    partitialPayerMap?: {};
 }
 
-export interface ExpenseOut {
+export interface Expense {
     id?: string;
     buyer?: string;
     comment: string;

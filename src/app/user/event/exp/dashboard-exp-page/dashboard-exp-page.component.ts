@@ -2,7 +2,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import {Event, Expense} from '../../../../shared/interfaces';
+import {Event, ExpenseIn} from '../../../../shared/interfaces';
 import {AlertService} from '../../../../shared/alert.service';
 import {ExpensesService} from '../../../shared/expenses.service';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -17,7 +17,7 @@ import {EventsService} from '../../../shared/events.service';
 export class DashboardExpPageComponent implements OnInit, OnDestroy {
 
   event: Event;
-  exps: Expense[] = [];
+  exps: ExpenseIn[] = [];
   eSub: Subscription;
   dSub: Subscription;
   searchStr = '';

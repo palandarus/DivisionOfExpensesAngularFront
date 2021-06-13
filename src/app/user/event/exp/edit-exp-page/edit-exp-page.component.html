@@ -1,0 +1,223 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Редатирование траты</h1>
+
+    <div
+            class="form-control"
+            [ngClass]="{invalid: form.get('comment').touched && form.get('comment').invalid}"
+    >
+        <label for="comment">Комментарий:</label>
+        <input id="comment" type="text" formControlName="comment">
+        <div
+                *ngIf="form.get('comment').touched && form.get('comment').invalid"
+                class="validation"
+        >
+            <small *ngIf="form.get('comment').errors.required">
+                Введите комментарий, не может быть пустым!
+            </small>з
+        </div>
+    </div>
+
+    <div
+            class="form-control"
+            [ngClass]="{invalid: form.get('date').touched && form.get('date').invalid}"
+    >
+        <div>
+            <label for="date">Дата проведения: {{ expense.expenseDate | date:'medium':null:'ru' }}</label>
+        </div>
+        <input id="date" type="datetime-local" formControlName="date">
+        <div
+                *ngIf="form.get('date').touched && form.get('date').invalid"
+                class="validation"
+        >
+            <small *ngIf="form.get('date').errors.required">
+                Введите дату. Дата траты, не может быть пустой!
+            </small>
+        </div>
+    </div>
+
+    <select formControlName="selectedBuyer" name="selectedBuyer" id="selectedBuyer">
+        <option *ngFor="let buyer of eventUserList" [value]="buyer">
+            {{buyer}}
+        </option>
+    </select>
+    <div
+            class="form-control"
+            [ngClass]="{invalid: form.get('totalExpenseSum').touched && form.get('totalExpenseSum').invalid}"
+    >
+        <label for="totalExpenseSum">Сумма: </label>
+        <input id="totalExpenseSum" type="number" min="0.00" value="0.00" formControlName="totalExpenseSum">
+        <div
+                *ngIf="form.get('totalExpenseSum').touched && form.get('totalExpenseSum').invalid"
+                class="validation"
+        >
+            <small *ngIf="form.get('totalExpenseSum').errors.required">
+                Введите сумму траты, она не может быть пустой!
+            </small>
+            <small *ngIf="form.get('totalExpenseSum').errors.pattern">
+                НЕ верное число! pattern(/^[.\d]+$/)
+            </small>
+        </div>
+    </div>
+
+    <div
+            style="margin-top: 1rem"
+            style="margin-bottom: 1rem"
+            class="form-control"
+            id="direct">
+        <label class="form-control" for="direct">Добавить direct пользователя: </label>
+        <div
+                class="form-control"
+                style="width: 500px"
+                [ngClass]="{invalid: form.get('newDirectUser').touched && form.get('newDirectUser').invalid}"
+        >
+            <select formControlName="newDirectUser" name="newDirectUser" id="newDirectUser">
+                <option *ngFor="let newDirectUser of eventUserList" [value]="newDirectUser">
+                    {{newDirectUser}}
+                </option>
+            </select>
+            <div
+                    *ngIf="form.get('newDirectUser').touched && form.get('newDirectUser').invalid"
+                    class="validation"
+            >
+                <small *ngIf="form.get('newDirectUser').errors.required">
+                    Имя должника, не может быть пустым!
+                </small>
+            </div>
+        </div>
+
+        <div
+                class="form-control"
+                style="width: 500px"
+                [ngClass]="{invalid: form.get('newDirectSum').touched && form.get('newDirectSum').invalid}"
+        >
+            <input id="newDirectSum" type="number" min="0" placeholder="Сумма" formControlName="newDirectSum">
+            <div
+                    *ngIf="form.get('newDirectSum').touched && form.get('newDirectSum').invalid"
+                    class="validation"
+            >
+                <small *ngIf="form.get('newDirectSum').errors.required">
+                    Введите сумму долга, она не может быть пустой!
+                </small>
+                <small *ngIf="form.get('newDirectSum').errors.pattern">
+                    НЕ верное число! pattern(/^[.\d]+$/)
+                </small>
+            </div>
+        </div>
+
+        <a
+                *ngIf="!form.get('newDirectSum').invalid && !form.get('newDirectUser').invalid "
+                (click)="addDirectPayer(form.get('newDirectUser').value, form.get('newDirectSum').value)"
+                class="text-danger"
+        >Добавить участника Direct</a>
+        <div>
+            <label>Список Direct участников:</label>
+            <table>
+                <thead>
+                <tr>
+                    <th>Ник</th>
+                    <th>Сумма</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                        *ngFor="let directPayer of directPayerMap | keyvalue">
+                    <td>{{ directPayer.key }}</td>
+                    <td>{{ directPayer.value | localizedCurrency: 'RUB': 'symbol-narrow'}}</td>
+                    <td>
+                        <a (click)="removeDirectPayer(directPayer.key)">Удалить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div
+            style="margin-top: 1rem"
+            style="margin-bottom: 1rem"
+            class="form-control"
+            id="partitial">
+        <label
+                class="form-control"
+                for="partitial"
+        >Добавить Partitial пользователя: </label>
+        <div
+                class="form-control"
+                style="width: 500px"
+                [ngClass]="{invalid: form.get('newPartitialUser').touched && form.get('newPartitialUser').invalid}"
+        >
+            <select formControlName="newPartitialUser" name="newDirectUser" id="newPartitialUser">
+                <option *ngFor="let newPartitialUser of eventUserList" [value]="newPartitialUser">
+                    {{newPartitialUser}}
+                </option>
+            </select>
+            <div
+                    *ngIf="form.get('newPartitialUser').touched && form.get('newPartitialUser').invalid"
+                    class="validation"
+            >
+                <small *ngIf="form.get('newPartitialUser').errors.required">
+                    Имя должника, не может быть пустым!
+                </small>
+            </div>
+        </div>
+
+        <div
+                class="form-control"
+                style="width: 500px"
+                [ngClass]="{invalid: form.get('newPartitialCoef').touched && form.get('newPartitialCoef').invalid}"
+        >
+            <input id="newPartitialCoef" type="text" placeholder="Коэфициент" formControlName="newPartitialCoef">
+            <div
+                    *ngIf="form.get('newPartitialCoef').touched && form.get('newPartitialCoef').invalid"
+                    class="validation"
+            >
+                <small *ngIf="form.get('newPartitialCoef').errors.required">
+                    Введите сумму долга, она не может быть пустой!
+                </small>
+                <small *ngIf="form.get('newPartitialCoef').errors.pattern">
+                    НЕ верное число! pattern(/^[.\d]+$/)
+                </small>
+            </div>
+        </div>
+
+        <a
+                *ngIf="!form.get('newPartitialCoef').invalid && !form.get('newPartitialCoef').invalid "
+                (click)="addPartitialPayer(form.get('newPartitialUser').value, form.get('newPartitialCoef').value)"
+                class="text-danger"
+        >Добавить участника Partitial</a>
+        <div>
+            <label>Список Partitial участников:</label>
+            <table>
+                <thead>
+                <tr>
+                    <th>Ник</th>
+                    <th>Коэфициент</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                        *ngFor="let partitialPayer of partitialPayerMap | keyvalue">
+                    <td>{{ partitialPayer.key }}</td>
+                    <td>{{ partitialPayer.value}}</td>
+                    <td>
+                        <a (click)="removePartitialPayer(partitialPayer.key)">Удалить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <button
+            type="submit"
+            class="btn btn-block btn-primary"
+            style="margin-top: 1rem"
+            style="margin-bottom: 1rem"
+
+    >Создать
+    </button>
+
+</form>
