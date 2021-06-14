@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserLayoutComponent} from './shared/components/user-layout/user-layout.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {RegisterPageComponent} from './register-page/register-page.component';
+import {RegisterConfirmPageComponent} from './register-confirm-page/register-confirm-page';
 import {DashboardEventPageComponent} from './event/dashboard-page/dashboard-event-page.component';
 import {CreateEventPageComponent} from './event/create-page/create-event-page.component';
 import {EditEventPageComponent} from './event/edit-event-page/edit-event-page.component';
@@ -18,11 +19,13 @@ import {DashboardExpPageComponent} from './event/exp/dashboard-exp-page/dashboar
 import {CreateExpensePageComponent} from './event/exp/create-exp-page/create-exp-page.component';
 import {EditExpPageComponent} from './event/exp/edit-exp-page/edit-exp-page.component';
 
+
 @NgModule({
     declarations: [
         UserLayoutComponent,
         LoginPageComponent,
         RegisterPageComponent,
+        RegisterConfirmPageComponent,
         DashboardEventPageComponent,
         CreateEventPageComponent,
         EditEventPageComponent,
@@ -44,6 +47,7 @@ import {EditExpPageComponent} from './event/exp/edit-exp-page/edit-exp-page.comp
                     {path: '', redirectTo: '/user/login', pathMatch: 'full'},
                     {path: 'login', component: LoginPageComponent},
                     {path: 'register', component: RegisterPageComponent},
+                    {path: 'register/:ticket/confirm', component: RegisterConfirmPageComponent},
                     {path: 'dashboard', component: DashboardEventPageComponent, canActivate: [AuthGuard]},
                     {path: 'create', component: CreateEventPageComponent, canActivate: [AuthGuard]},
                     {path: 'event/:id/edit', component: EditEventPageComponent, canActivate: [AuthGuard]},

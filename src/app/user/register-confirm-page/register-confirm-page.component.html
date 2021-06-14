@@ -1,0 +1,15 @@
+<form class="card" [formGroup]="form">
+  <h2>Подтверждение регистрации</h2>
+
+  <label for="message">Сообщение от сервера регистрации:</label>
+  <input id="message" type="text" formControlName="message" readonly>
+
+  <button
+          class="btn btn-link open"
+          [routerLink]="['/user', 'dashboard']"
+  >
+    Войти в личный кабинет
+  </button>
+
+
+</form>

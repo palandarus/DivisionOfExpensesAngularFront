@@ -13,7 +13,7 @@ import {Subscription, throwError} from 'rxjs';
     templateUrl: './register-page.component.html',
     styleUrls: ['./register-page.component.scss']
 })
-export class RegisterPageComponent implements OnInit, OnDestroy{
+export class RegisterPageComponent implements OnInit, OnDestroy {
 
     form: FormGroup;
     submitted = false;
