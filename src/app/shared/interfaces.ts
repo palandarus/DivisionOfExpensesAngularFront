@@ -21,7 +21,7 @@ export interface Event {
     amountOfExpense?: string;
     expenseList?: string[];
     description?: string;
-
+    eventMemberMap?: {};
 }
 
 export interface UserRegistrationTicket {

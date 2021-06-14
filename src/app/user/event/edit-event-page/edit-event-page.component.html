@@ -73,6 +73,26 @@
                 </tbody>
             </table>
         </div>
+
+        <div>
+            <label>Таблица взаиморасчетов</label>
+            <table>
+                <thead>
+                <tr>
+                    <th>Ник</th>
+                    <th>Сумма долга</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                        *ngFor="let eventMember of eventMemberMap | keyvalue">
+                    <td>{{ eventMember.key }}</td>
+                    <td>{{ eventMember.value | localizedCurrency: 'RUB': 'symbol-narrow'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
         <button
                 class="btn btn-success"
                 type="submit"

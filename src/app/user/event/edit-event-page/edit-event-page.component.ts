@@ -7,6 +7,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription, throwError} from 'rxjs';
 import {AlertService} from '../../../shared/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {strictEqual} from 'assert';
 
 @Component({
     selector: 'app-edit-page',
@@ -19,6 +20,8 @@ export class EditEventPageComponent implements OnInit, OnDestroy {
     event: Event;
     submitted = false;
     uSub: Subscription;
+    eventMemberMap: Map<string, string>;
+    eventMemberArray: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -34,7 +37,10 @@ export class EditEventPageComponent implements OnInit, OnDestroy {
                 return this.eventsService.getById(params.id);
             })
         ).subscribe((event: Event) => {
+            this.eventMemberMap = new Map<string, string>();
             this.event = event;
+            this.eventMemberArray = event.eventMemberMap;
+            this.convertEventMemberMapFromJson();
             this.form = new FormGroup({
                 title: new FormControl(event.title, Validators.required),
                 date: new FormControl(event.date, Validators.required),
@@ -91,5 +97,13 @@ export class EditEventPageComponent implements OnInit, OnDestroy {
     addUser(eventUser: string) {
         this.form.get('newEventUser').reset();
         this.event.eventUserList.push(eventUser);
+    }
+
+    convertEventMemberMapFromJson() {
+        // tslint:disable-next-line:forin
+        for (const key in this.eventMemberArray) {
+            console.log(key, this.eventMemberArray[key]);
+            this.eventMemberMap.set(key, this.eventMemberArray[key]);
+        }
     }
 }

@@ -63,7 +63,6 @@ export class EditExpPageComponent implements OnInit , OnDestroy{
             this.convertPartitialPayerMapFromJson();
             console.log('directPayerMap initialised ', this.directPayerMap);
             console.log('partitialPayerMap initialised ', this.partitialPayerMap);
-            this.convertPartitialPayerMapFromJson();
             this.form = new FormGroup({
                 comment: new FormControl(this.expense.comment, Validators.required),
                 date: new FormControl(this.expense.expenseDate, Validators.required),
