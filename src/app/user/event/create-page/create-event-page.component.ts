@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Event} from '../../../shared/interfaces';
 import {EventsService} from '../../shared/events.service';
 import {AlertService} from '../../../shared/alert.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class CreateEventPageComponent implements OnInit {
 
     constructor(
         private eventsService: EventsService,
-        private alert: AlertService
+        private alert: AlertService,
+        private router: Router
     ) {
     }
 
@@ -42,6 +44,7 @@ export class CreateEventPageComponent implements OnInit {
         this.eventsService.create(event).subscribe(() => {
             this.form.reset();
             this.alert.success('Новое событие было успешно создано.');
+            this.router.navigate(['/user', 'dashboard']);
         });
     }
 

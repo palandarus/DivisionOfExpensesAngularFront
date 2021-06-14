@@ -101,7 +101,7 @@ export class EditExpPageComponent implements OnInit , OnDestroy{
                 if (error.status === 202) {
                     this.submitted = false;
                     this.alert.success('expense был обновлен');
-                    this.router.navigate(['/user', 'dashboard']);
+                    this.router.navigate(['/user', 'event', this.eventId, 'exp']);
                 } else if (error.status === 403) {
                     this.alert.danger(`ошибка, изменения не сохранены. ${error.message.toString()}`);
                 }
@@ -111,7 +111,7 @@ export class EditExpPageComponent implements OnInit , OnDestroy{
         ).subscribe(() => {
             this.submitted = false;
             this.alert.success('expense был обновлен');
-            this.router.navigate(['/user', 'dashboard']);
+            this.router.navigate(['/user', 'event', this.eventId, 'exp']);
         });
     }
 

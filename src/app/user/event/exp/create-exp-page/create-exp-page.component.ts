@@ -6,7 +6,7 @@ import {ExpensesService} from '../../../shared/expenses.service';
 import {Event} from '../../../../shared/interfaces';
 import {EventsService} from '../../../shared/events.service';
 import {AlertService} from '../../../../shared/alert.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 
 
@@ -30,7 +30,8 @@ export class CreateExpensePageComponent implements OnInit {
       private route: ActivatedRoute,
       private expensesService: ExpensesService,
       private eventsService: EventsService,
-      private alert: AlertService
+      private alert: AlertService,
+      private router: Router
   ) {
   }
 
@@ -77,6 +78,7 @@ export class CreateExpensePageComponent implements OnInit {
     this.expensesService.create(expense, this.event.id).subscribe(() => {
       this.form.reset();
       this.alert.success('Новая трата была успешно создана.');
+      this.router.navigate(['/user', 'event', this.event.id, 'exp']);
     });
   }
 
