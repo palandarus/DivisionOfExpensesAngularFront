@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Event} from '../../shared/interfaces';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RegisterService} from '../shared/services/register.service';
 import {AlertService} from '../../shared/alert.service';
-import {switchMap} from 'rxjs/operators';
+import {catchError, switchMap} from 'rxjs/operators';
+import {HttpErrorResponse} from '@angular/common/http';
+import {throwError} from 'rxjs';
 
 
 @Component({
@@ -13,10 +13,9 @@ import {switchMap} from 'rxjs/operators';
     styleUrls: ['./register-confirm-page.scss']
 })
 export class RegisterConfirmPageComponent implements OnInit {
-
-    form: FormGroup;
     submitted = false;
     message: string;
+    ticket: string;
 
     constructor(
         public register: RegisterService,
@@ -29,13 +28,25 @@ export class RegisterConfirmPageComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.pipe(
-            switchMap((params: Params) => {
-                return this.registerService.confirm(params.ticket);
+            switchMap((params: Params) => this.ticket = params.ticket)
+        );
+        this.registerService.confirm(this.ticket).pipe(
+            catchError((error: HttpErrorResponse) => {
+                if (error.status === 201) {
+                    this.submitted = false;
+                    this.alert.success('Пользователь был успешно зарегистрирован');
+                    this.router.navigate(['/user', 'dashboard']);
+                } else if (error.status === 404) {
+                    this.alert.danger(`ошибка, регистрационный тикет не найден. ${error.message.toString()}`);
+                }
+                this.submitted = false;
+                return throwError(error);
             })
-        ).subscribe((response: string) => {
-            this.form = new FormGroup({
-                message: new FormControl(response)
-            });
+        ).subscribe(() => {
+            this.submitted = false;
+            this.alert.success('Пользователь был успешно зарегистрирован');
+            this.router.navigate(['/user', 'dashboard']);
         });
-    }
+        }
 }
+

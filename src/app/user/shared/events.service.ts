@@ -24,7 +24,7 @@ export class EventsService {
         return r;
     }
 
-    getById(id: string): Observable<Event> {
+     getById(id: string): Observable<Event> {
         console.log('http.get Event (`${environment.API_ENDPOINT}/api/v1/event/${id} ', id);
         const r: Observable<Event> = this.http.get<Event>(`${environment.API_ENDPOINT}/api/v1/event/${id}`)
             .pipe(

@@ -4,7 +4,7 @@ import {Observable, Subject} from 'rxjs';
 
 import {map} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
-import {Event, ExpenseIn, UserRegistrationTicket} from '../../../shared/interfaces';
+import {Event, Expense, ExpenseIn, UserRegistrationTicket} from '../../../shared/interfaces';
 
 
 @Injectable({providedIn: 'root'})
@@ -18,11 +18,8 @@ export class RegisterService {
         return this.http.post(`${environment.API_ENDPOINT}/registration`, userRegistrationTicket);
     }
 
-    confirm(ticket: string): Observable<string> {
+    confirm(ticket: string): Observable<ExpenseIn> {
         console.log('confirm registration ticket: ', ticket);
-        const r = this.http.get(`${environment.API_ENDPOINT}/registration/${ticket}`).pipe(
-            map((response: string) => response));
-        console.log(r.toPromise());
-        return r;
+        return this.http.get<ExpenseIn>(`${environment.API_ENDPOINT}/registration/${ticket}`);
     }
 }
