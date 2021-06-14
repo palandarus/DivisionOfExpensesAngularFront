@@ -107,28 +107,6 @@
                 (click)="addDirectPayer(form.get('newDirectUser').value, form.get('newDirectSum').value)"
                 class="text-danger"
         >Добавить участника Direct</a>
-        <div>
-            <label>Список Direct участников:</label>
-            <table>
-                <thead>
-                <tr>
-                    <th>Ник</th>
-                    <th>Сумма</th>
-                    <th>Действия</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr
-                        *ngFor="let directPayer of directPayerMap | keyvalue">
-                    <td>{{ directPayer.key }}</td>
-                    <td>{{ directPayer.value | localizedCurrency: 'RUB': 'symbol-narrow'}}</td>
-                    <td>
-                        <a (click)="removeDirectPayer(directPayer.key)">Удалить</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 
     <div
@@ -190,7 +168,7 @@
                 <thead>
                 <tr>
                     <th>Ник</th>
-                    <th>Коэфициент</th>
+                    <th>Коэфициент/Сумма</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -201,6 +179,14 @@
                     <td>{{ partitialPayer.value}}</td>
                     <td>
                         <a (click)="removePartitialPayer(partitialPayer.key)">Удалить</a>
+                    </td>
+                </tr>
+                <tr
+                        *ngFor="let directPayer of directPayerMap | keyvalue">
+                    <td>{{ directPayer.key }}</td>
+                    <td>{{ directPayer.value | localizedCurrency: 'RUB': 'symbol-narrow'}}</td>
+                    <td>
+                        <a (click)="removeDirectPayer(directPayer.key)">Удалить</a>
                     </td>
                 </tr>
                 </tbody>

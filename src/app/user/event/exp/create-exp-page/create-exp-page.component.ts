@@ -99,8 +99,8 @@ export class CreateExpensePageComponent implements OnInit {
 
 
   removeDirectPayer(directUser: string) {
-    this.partitialPayerMap.delete(directUser);
-    console.log(this.partitialPayerMap);
+    this.directPayerMap.delete(directUser);
+    console.log(this.directPayerMap);
   }
 
   removePartitialPayer(partitialUser: string) {
