@@ -22,8 +22,14 @@ export interface Event {
     expenseList?: string[];
     description?: string;
 
-    // private List<String> eventUserLIst;
-    // private List<ExpenseDto> expenseList;
+}
+
+export interface UserRegistrationTicket {
+    firstname?: string;
+    lastname?: string;
+    username?: string[];
+    password?: string;
+    email?: string[];
 }
 
 export interface FbCreateResponse {
