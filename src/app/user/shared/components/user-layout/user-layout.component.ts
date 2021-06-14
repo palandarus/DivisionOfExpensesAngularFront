@@ -23,4 +23,8 @@ export class UserLayoutComponent implements OnInit {
     this.auth.logout();
     this.router.navigate(['/user', 'login']);
   }
+
+  get userName(): string {
+    return this.auth.token;
+  }
 }

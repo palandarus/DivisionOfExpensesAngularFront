@@ -71,4 +71,7 @@ export class AuthService {
             localStorage.clear();
         }
     }
+    getUsername() {
+        return localStorage.getItem('currentUser');
+    }
 }

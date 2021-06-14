@@ -2,15 +2,18 @@
 
 <nav class="navbar bg-primary">
   <h1>
-    <a routerLink="/">About</a>
+    <a routerLink="/">На главную</a>
   </h1>
 
   <ul *ngIf="auth.isAuthenticated()">
-    <li routerLinkActive="active">
-      <a [routerLink]="['/user', 'dashboard']">Главная</a>
+    <li>
+      <p>Hello, {{auth.getUsername()}}!</p>
     </li>
     <li routerLinkActive="active">
-      <a [routerLink]="['/user', 'create']">Создать Event</a>
+      <a [routerLink]="['/user', 'dashboard']">Список Событий</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/user', 'create']">Создать Событие</a>
     </li>
     <li>
       <a href="#" (click)="logout($event)">Выйти</a>

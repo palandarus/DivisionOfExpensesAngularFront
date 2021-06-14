@@ -104,6 +104,8 @@ export class EditExpPageComponent implements OnInit , OnDestroy{
                     this.router.navigate(['/user', 'event', this.eventId, 'exp']);
                 } else if (error.status === 403) {
                     this.alert.danger(`ошибка, изменения не сохранены. ${error.message.toString()}`);
+                } else if (error.status === 406){
+                    this.alert.danger(`ошибка, вы не можете править чужую трату. ${error.message.toString()}`);
                 }
                 this.submitted = false;
                 return throwError(error);
