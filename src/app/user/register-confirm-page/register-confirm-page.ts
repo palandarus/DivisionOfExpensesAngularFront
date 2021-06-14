@@ -15,7 +15,7 @@ import {throwError} from 'rxjs';
 export class RegisterConfirmPageComponent implements OnInit {
     submitted = false;
     message: string;
-    ticket: string;
+    ticket: any;
 
     constructor(
         public register: RegisterService,
@@ -27,9 +27,9 @@ export class RegisterConfirmPageComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.pipe(
-            switchMap((params: Params) => this.ticket = params.ticket)
-        );
+        this.route.params.subscribe(params => {
+            this.ticket = params.ticket;
+        });
         this.registerService.confirm(this.ticket).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 201) {
